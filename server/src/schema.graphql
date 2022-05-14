@@ -1,0 +1,38 @@
+type Query {
+  getCommentsList: [Comment!]!
+}
+
+type Mutation {
+  postComment(content: String!): Comment!
+  signup(email: String!, password: String!, name: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+}
+
+type AuthPayload {
+  token: String
+  user: User
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  comments: [Comment!]!
+}
+
+type Recommendation {
+  id: ID!
+  title: String!
+  author: String!
+  description: String!
+  shopUrl: String!
+}
+
+scalar Date
+
+type Comment {
+  id: ID!
+  createdAt: Date!
+  content: String!
+  postedBy: User
+}

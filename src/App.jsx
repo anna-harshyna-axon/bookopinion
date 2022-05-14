@@ -1,9 +1,9 @@
-import './App.css'
-
-import React from 'react'
+import { Box } from '@mui/material'
+import { Main } from 'pages/Main'
+import { Redirect, Route, Switch } from 'react-router-dom'
 
 function App() {
-  return <div className="App">BookOpinion</div>
+  return <Box>Hello</Box>
 }
 
 export default App
