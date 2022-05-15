@@ -8,10 +8,10 @@ export const ErrorHelperText = ({ msg }: { msg: string }) => {
 
   return (
     <Box display="flex" fontWeight="400" alignItems="flex-start" pt={0.5}>
-      <Box pr={0.75} display="flex">
+      <Box pr={0.5} display="flex">
         <ErrorIcon color="error" />
       </Box>
-      <Typography variant="body2" display="inline">
+      <Typography variant="subtitle1" display="inline">
         {msg}
       </Typography>
     </Box>

@@ -47,9 +47,6 @@ export const theme = createTheme({
       lineHeight: '34px',
       fontWeight: 'inherit',
     },
-    h5: {
-      fontWeight: 'inherit',
-    },
     body1: {
       fontSize: '16px',
       lineHeight: '24px',

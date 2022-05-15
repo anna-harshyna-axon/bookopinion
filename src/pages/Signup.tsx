@@ -1,7 +1,6 @@
 import { gql, useMutation } from '@apollo/client'
 import { Box, Button, Divider, Typography } from '@mui/material'
 import { TextField } from 'components/basic/TextField'
-import { ErrorHelperText } from 'components/form/ErrorHelperText'
 import { AUTH_TOKEN } from 'constants.js'
 import { textFieldError } from 'lib/textFieldError'
 import {
@@ -13,39 +12,39 @@ import {
 } from 'lib/validations.ts'
 import { useSnackbar } from 'notistack'
 import { Controller, useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 type FormValues = {
+  name: string
   email: string
   password: string
 }
 
-const LOGIN_MUTATION = gql`
-  mutation LoginMutation($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
+const SIGNUP_MUTATION = gql`
+  mutation SignupMutation($email: String!, $password: String!, $name: String!) {
+    signup(email: $email, password: $password, name: $name) {
       token
     }
   }
 `
 
-const Login = () => {
+const Signup = () => {
   const navigate = useNavigate()
   const { enqueueSnackbar } = useSnackbar()
 
-  const { control, handleSubmit, watch, setError } = useForm<FormValues>({
+  const { control, handleSubmit, setError } = useForm<FormValues>({
     defaultValues: {
+      name: '',
       email: '',
       password: '',
     },
   })
 
-  const [email, password] = watch(['email', 'password'])
-
-  const [login] = useMutation(LOGIN_MUTATION, {
-    onCompleted: ({ login }) => {
-      localStorage.setItem(AUTH_TOKEN, login.token)
+  const [signup] = useMutation(SIGNUP_MUTATION, {
+    onCompleted: ({ signup }) => {
+      localStorage.setItem(AUTH_TOKEN, signup.token)
       navigate('/')
-      enqueueSnackbar('Вас успішно авторизовано', { variant: 'success' })
+      enqueueSnackbar('Вас успішно pареєстровано', { variant: 'success' })
     },
   })
 
@@ -66,14 +65,15 @@ const Login = () => {
           fontWeight="600"
           color="secondary.main"
         >
-           Вхід
+           Реєстрація
         </Typography>
         <Divider />
         <form
           noValidate
           onSubmit={handleSubmit(values => {
-            login({
+            signup({
               variables: {
+                name: values.name,
                 email: values.email,
                 password: values.password,
               },
@@ -81,6 +81,28 @@ const Login = () => {
           })}
         >
           <Box mt={6} mb={2}>
+            <Controller
+              name="name"
+              control={control}
+              rules={{
+                ...nameValidation,
+                minLength: minLength(2, 'Ім`я має бути не менше 2 символів'),
+              }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  label="Ім'я"
+                  required
+                  margin="dense"
+                  inputProps={{ maxLength: 20 }}
+                  placeholder="Введіть ім'я"
+                  {...textFieldError(fieldState.error)}
+                  {...field}
+                />
+              )}
+            />
+          </Box>
+
+          <Box mb={2}>
             <Controller
               name="email"
               control={control}
@@ -92,7 +114,6 @@ const Login = () => {
                   label="Ел. пошта"
                   required
                   margin="dense"
-                  inputProps={{ maxLength: 30 }}
                   placeholder="Введіть адресу електроної пошти"
                   {...textFieldError(fieldState.error)}
                   {...field}
@@ -126,28 +147,14 @@ const Login = () => {
             color="primary"
             fullWidth
             disableRipple
-            sx={{ my: 3 }}
+            sx={{ my: 4 }}
           >
-            Увійти
+            Зареєструватись
           </Button>
         </form>
-
-        <Box textAlign="center">
-          <Typography variant="caption">
-            Не маєте акаунту?{' '}
-            <Typography variant="caption" color="secondary" component="span">
-              <Link
-                to="/signup"
-                style={{ textDecoration: 'none', color: '#F6A975' }}
-              >
-                Зареєструйтесь
-              </Link>
-            </Typography>
-          </Typography>
-        </Box>
       </Box>
     </Box>
   )
 }
 
-export default Login
+export default Signup

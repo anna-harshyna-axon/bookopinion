@@ -1,12 +1,29 @@
-import { Box, IconButton, Menu, MenuItem } from '@mui/material'
+import {
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
 import { IconProfile } from 'assets/icons'
 import Logo from 'assets/logo.png'
 import { AUTH_TOKEN } from 'constants.js'
+import { useSnackbar } from 'notistack'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const Header = () => {
+  const theme = useTheme()
   const navigate = useNavigate()
+
+  const { enqueueSnackbar } = useSnackbar()
+
+  const location = useLocation()
+
+  const isLoginPage = location.pathname === '/login'
+
+  const smallerThanDesktop = useMediaQuery(theme.breakpoints.down('md'))
 
   const authToken = localStorage.getItem(AUTH_TOKEN)
 
@@ -39,12 +56,15 @@ const Header = () => {
           style={{ display: 'block' }}
         />
       </Link>
-      <Link
-        to="/"
-        style={{ textDecoration: 'none', color: '#FFF', fontWeight: 600 }}
-      >
-        Головна
-      </Link>
+
+      {!smallerThanDesktop && (
+        <Link
+          to="/"
+          style={{ textDecoration: 'none', color: '#FFF', fontWeight: 600 }}
+        >
+          Головна
+        </Link>
+      )}
 
       {authToken ? (
         <>
@@ -80,6 +100,9 @@ const Header = () => {
               onClick={() => {
                 localStorage.removeItem(AUTH_TOKEN)
                 navigate(`/`)
+                enqueueSnackbar('Ви вийшли з вашого акаунту', {
+                  variant: 'success',
+                })
               }}
             >
               Вийти

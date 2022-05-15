@@ -4,18 +4,14 @@ import { useRef } from 'react'
 
 export const StyledProvider = styled(Provider)(({ theme }) => ({
   '&.SnackbarContent-root': {
-    width: '324px',
+    width: '400px',
     flexWrap: 'nowrap',
     alignItems: 'flex-start',
   },
 
   '&.SnackbarItem-variantSuccess': {
-    background: theme.palette.success.main,
+    background: theme.palette.secondary.main,
   },
-
-  // '&.SnackbarItem-variantInfo': {
-  //   background: theme.palette.info.main,
-  // },
 
   // '&.SnackbarItem-variantError': {
   //   background: theme.palette.error.main,
