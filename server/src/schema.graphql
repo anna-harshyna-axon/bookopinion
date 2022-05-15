@@ -1,9 +1,11 @@
 type Query {
   getCommentsList: [Comment!]!
+  getUsers: [User!]!
 }
 
 type Mutation {
   postComment(content: String!): Comment!
+  deleteComment: Comment!
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
 }
@@ -17,7 +19,7 @@ type User {
   id: ID!
   name: String!
   email: String!
-  comments: [Comment!]!
+  comments: [Comment]
 }
 
 type Recommendation {

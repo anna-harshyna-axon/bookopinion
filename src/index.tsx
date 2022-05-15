@@ -16,7 +16,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3000',
+  uri: 'http://localhost:4000',
 })
 
 const client = new ApolloClient({
@@ -26,16 +26,16 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <StrictMode>
-    <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <ApolloProvider client={client}>
         <BrowserRouter>
           <SnackbarProvider>
             <App />
           </SnackbarProvider>
         </BrowserRouter>
-      </ThemeProvider>
-    </ApolloProvider>
+      </ApolloProvider>
+    </ThemeProvider>
   </StrictMode>,
   document.getElementById('root'),
 )

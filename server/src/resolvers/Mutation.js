@@ -46,8 +46,13 @@ async function postComment(parent, args, context, info) {
   })
 }
 
+async function deleteComment(parent, args, context, info) {
+  return await context.prisma.comment.deleteMany({})
+}
+
 module.exports = {
   signup,
   login,
   postComment,
+  deleteComment,
 }
