@@ -26,6 +26,7 @@ const Header = () => {
       alignItems="center"
       justifyContent="space-between"
       height="80px"
+      width="100%"
       bgcolor="#85CDEC"
       px={4}
     >

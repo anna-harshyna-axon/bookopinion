@@ -44,17 +44,6 @@ const Footer = () => {
             </Link>
           </Stack>
         </Box>
-        <Typography variant="body2" color="text.secondary">
-          або надсилайте листа на пошту
-          <Link
-            href="mailto:info@taskpod.me"
-            color="inherit"
-            underline="none"
-            ml={0.5}
-          >
-            bookopinion@gmail.com
-          </Link>
-        </Typography>
       </Stack>
       <Divider sx={{ width: '100%', bgcolor: 'text.secondary' }} />
       <Typography variant="body2" color="text.secondary">

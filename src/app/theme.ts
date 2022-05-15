@@ -3,11 +3,10 @@ import { createTheme, outlinedInputClasses } from '@mui/material'
 export const theme = createTheme({
   palette: {
     primary: {
-      main: '#215250',
+      main: '#85CDEC',
     },
     secondary: {
-      main: '#CD7A47',
-      light: '#EB833D',
+      main: '#F6A975',
     },
     // error: {
     //   main: '#BF2600',
@@ -153,31 +152,21 @@ export const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: '4px',
+          borderRadius: '50px',
           lineHeight: '24px',
-          padding: '8px 12px',
+          padding: '36px 50px',
           height: '40px',
           fontSize: '16px',
           minWidth: 'auto',
+          color: '#FFF',
         },
-        outlined: {
-          border: '2px solid #215250',
-          color: '#215250',
-          padding: '10px 12px',
-
-          '&:hover': {
-            border: '2px solid #215250',
-          },
-        },
-        contained: {
-          boxShadow: 'none',
-
-          ':hover': {
-            boxShadow: 'none',
-          },
+        sizeSmall: {
+          height: '78px',
+          width: '110px',
         },
         sizeLarge: {
-          height: '44px',
+          height: '96px',
+          width: '394pxx',
         },
       },
     },
