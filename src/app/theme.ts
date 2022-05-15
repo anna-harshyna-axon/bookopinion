@@ -9,24 +9,24 @@ export const theme = createTheme({
       main: '#CD7A47',
       light: '#EB833D',
     },
-    error: {
-      main: '#BF2600',
-      dark: '#98280C',
-      contrastText: '#FFF',
-    },
-    info: {
-      main: '#1E3C3C',
-    },
-    success: {
-      main: '#3E8D90',
-    },
-    background: {
-      default: '#FFF',
-    },
+    // error: {
+    //   main: '#BF2600',
+    //   dark: '#98280C',
+    //   contrastText: '#FFF',
+    // },
+    // info: {
+    //   main: '#1E3C3C',
+    // },
+    // success: {
+    //   main: '#3E8D90',
+    // },
+    // background: {
+    //   default: '#FFF',
+    // },
     text: {
-      primary: '#0B0B0B',
-      secondary: '#808080',
-      disabled: '#4A4A4A',
+      primary: '#000',
+      secondary: '#FFF',
+      disabled: '#E5E5E5',
     },
   },
 
@@ -37,7 +37,7 @@ export const theme = createTheme({
   },
 
   typography: {
-    fontFamily: ['RNS Sanz', 'sans-serif'].join(','),
+    fontFamily: ['Roboto', 'sans-serif'].join(','),
     h1: {
       fontSize: '32px',
       lineHeight: '40px',
