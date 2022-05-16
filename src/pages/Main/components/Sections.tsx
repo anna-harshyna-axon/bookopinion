@@ -12,7 +12,7 @@ export const Sections = () => {
       justifyContent="center"
     >
       <Button
-        onClick={() => navigate('/')}
+        onClick={() => navigate('/fiction')}
         variant="contained"
         disableRipple
         size="large"
@@ -20,7 +20,7 @@ export const Sections = () => {
         Художня література <IconBooks viewBox="0 0 44 44" sx={{ ml: 1 }} />
       </Button>
       <Button
-        onClick={() => navigate('/')}
+        onClick={() => navigate('/self-development')}
         variant="contained"
         disableRipple
         size="large"
@@ -28,7 +28,7 @@ export const Sections = () => {
         Саморозвиток <IconDiagram viewBox="0 0 44 44" sx={{ ml: 1 }} />
       </Button>
       <Button
-        onClick={() => navigate('/')}
+        onClick={() => navigate('/technical')}
         variant="contained"
         disableRipple
         size="large"

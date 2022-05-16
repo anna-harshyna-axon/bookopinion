@@ -61,7 +61,12 @@ const Header = () => {
       {!smallerThanDesktop && (
         <Link
           to="/"
-          style={{ textDecoration: 'none', color: '#FFF', fontWeight: 600 }}
+          style={{
+            textDecoration: 'none',
+            color: '#FFF',
+            fontWeight: 600,
+            paddingRight: '120px',
+          }}
         >
           Головна
         </Link>
