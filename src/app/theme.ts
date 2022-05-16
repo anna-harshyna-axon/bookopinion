@@ -151,7 +151,7 @@ export const theme = createTheme({
         root: {
           borderRadius: '50px',
           lineHeight: '24px',
-          padding: '36px 50px',
+          padding: '24px 40px',
           height: '40px',
           fontSize: '16px',
           minWidth: 'auto',
@@ -162,8 +162,7 @@ export const theme = createTheme({
           width: '110px',
         },
         sizeLarge: {
-          height: '96px',
-          width: '394pxx',
+          padding: '36px 50px',
         },
       },
     },

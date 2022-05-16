@@ -28,6 +28,7 @@ const Header = () => {
   const authToken = localStorage.getItem(AUTH_TOKEN)
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+
   const open = Boolean(anchorEl)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -75,6 +76,7 @@ const Header = () => {
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
             sx={{ width: '24px', height: '24px' }}
+            disableRipple
           >
             <IconProfile viewBox="0 0 36 36" />
           </IconButton>
@@ -91,7 +93,7 @@ const Header = () => {
             <MenuItem
               onClick={() => {
                 navigate('/profile')
-                // handleClose
+                handleClose()
               }}
             >
               Мій профіль

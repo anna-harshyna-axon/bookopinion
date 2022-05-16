@@ -46,6 +46,17 @@ async function postComment(parent, args, context, info) {
   })
 }
 
+async function updateMyProfile(parent, args, context, info) {
+  return await context.prisma.user.update({
+    where: {
+      id: Number(args.id),
+    },
+    data: {
+      name: args.name,
+    },
+  })
+}
+
 async function deleteComment(parent, args, context, info) {
   return await context.prisma.comment.deleteMany({})
 }
@@ -55,4 +66,5 @@ module.exports = {
   login,
   postComment,
   deleteComment,
+  updateMyProfile,
 }

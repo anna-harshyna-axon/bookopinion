@@ -32,14 +32,12 @@ const Login = () => {
   const navigate = useNavigate()
   const { enqueueSnackbar } = useSnackbar()
 
-  const { control, handleSubmit, watch, setError } = useForm<FormValues>({
+  const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       email: '',
       password: '',
     },
   })
-
-  const [email, password] = watch(['email', 'password'])
 
   const [login] = useMutation(LOGIN_MUTATION, {
     onCompleted: ({ login }) => {

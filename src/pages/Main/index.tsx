@@ -62,7 +62,12 @@ const Main = () => {
           <Typography textAlign="center" mb={3} maxWidth="326px">
             Згенеруйте випадкову рекомендацію за допомогою кнопки
           </Typography>
-          <Button color="secondary" variant="contained" disableRipple>
+          <Button
+            color="secondary"
+            variant="contained"
+            disableRipple
+            size="large"
+          >
             Згенерувати
           </Button>
         </Stack>

@@ -11,13 +11,28 @@ export const Sections = () => {
       spacing={{ xs: 5, md: 10 }}
       justifyContent="center"
     >
-      <Button onClick={() => navigate('/')} variant="contained" disableRipple>
+      <Button
+        onClick={() => navigate('/')}
+        variant="contained"
+        disableRipple
+        size="large"
+      >
         Художня література <IconBooks viewBox="0 0 44 44" sx={{ ml: 1 }} />
       </Button>
-      <Button onClick={() => navigate('/')} variant="contained" disableRipple>
+      <Button
+        onClick={() => navigate('/')}
+        variant="contained"
+        disableRipple
+        size="large"
+      >
         Саморозвиток <IconDiagram viewBox="0 0 44 44" sx={{ ml: 1 }} />
       </Button>
-      <Button onClick={() => navigate('/')} variant="contained" disableRipple>
+      <Button
+        onClick={() => navigate('/')}
+        variant="contained"
+        disableRipple
+        size="large"
+      >
         Технічна література <IconComputer viewBox="0 0 44 44" sx={{ ml: 1 }} />
       </Button>
     </Stack>

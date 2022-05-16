@@ -1,11 +1,14 @@
 type Query {
+  getMyProfile: User!
   getCommentsList: [Comment!]!
-  getUsers: [User!]!
 }
 
 type Mutation {
   postComment(content: String!): Comment!
+  updateMyProfile(id: ID!, name: String!): User!
+
   deleteComment: Comment!
+
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
 }
