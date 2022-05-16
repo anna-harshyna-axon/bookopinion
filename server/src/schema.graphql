@@ -28,6 +28,9 @@ type Recommendation {
   author: String!
   description: String!
   shopUrl: String!
+  imageUrl: String!
+  comments: [Comment]
+  section: Section
 }
 
 scalar Date
@@ -37,4 +40,11 @@ type Comment {
   createdAt: Date!
   content: String!
   postedBy: User
+  belongTo: Recommendation
+}
+
+type Section {
+  id: ID!
+  name: String!
+  recommendations: [Recommendation]
 }

@@ -13,6 +13,8 @@ model Comment {
   content String
   postedBy    User?    @relation(fields: [postedById], references: [id])
   postedById  Int?
+  belongTo    Recommendation?    @relation(fields: [belongToId], references: [id])
+  belongToId  Int?
 }
 
 model User {
@@ -21,4 +23,22 @@ model User {
   email     String   @unique
   password  String
   comments  Comment[]
+}
+
+model Recommendation {
+  id        Int      @id @default(autoincrement())
+  title      String
+  author     String
+  description String
+  shopUrl     String
+  imageUrl    String
+  comments    Comment[]
+  section     Section?    @relation(fields: [sectionId], references: [id])
+  sectionId  Int?
+}
+
+model Section {
+  id       Int      @id @default(autoincrement())
+  name     String
+  recommendations Recommendation[]
 }
