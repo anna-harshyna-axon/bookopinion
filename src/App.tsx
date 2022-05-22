@@ -1,13 +1,13 @@
 import { Box } from '@mui/material'
 import Footer from 'components/Footer'
 import Header from 'components/Header'
-import Login from 'pages/Login'
-import Main from 'pages/Main'
-import Profile from 'pages/Profile'
+import Login from 'pages/login'
+import Main from 'pages/main'
+import Profile from 'pages/profile'
 import FictionSection from 'pages/sections/Fiction'
 import SelfDevSection from 'pages/sections/SelfDev'
 import TechnicalSection from 'pages/sections/Tech'
-import Signup from 'pages/Signup'
+import Signup from 'pages/signup'
 import { Route, Routes } from 'react-router-dom'
 
 function App() {
@@ -22,6 +22,10 @@ function App() {
         <Route path="/self-development" element={<SelfDevSection />} />
         <Route path="/technical" element={<TechnicalSection />} />
         <Route path="/fiction" element={<FictionSection />} />
+        {/* <Route
+          path="/view-contact-details/:id"
+          element={<RecommendationDetails />}
+        /> */}
       </Routes>
       <Footer />
     </Box>

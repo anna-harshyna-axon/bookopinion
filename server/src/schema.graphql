@@ -1,13 +1,27 @@
 type Query {
   getMyProfile: User!
-  getCommentsList: [Comment!]!
+  getComments: [Comment!]!
+  getRecommendations(filter: ID!): [Recommendation!]!
+  getSection(filter: ID!): Section!
 }
 
 type Mutation {
   postComment(content: String!): Comment!
   updateMyProfile(id: ID!, name: String!): User!
 
+  addSection(id: ID!, sectionId: ID!): Recommendation!
+
+  createRecommendation(
+  title: String!
+  author: String!
+  description: String!
+  shopUrl: String!
+  imageUrl: String!
+  ): Recommendation!
+
   deleteComment: Comment!
+
+  deleteRecommendations: Recommendation!
 
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
@@ -43,7 +57,7 @@ type Comment {
   createdAt: Date!
   content: String!
   postedBy: User
-  belongTo: Recommendation
+  belongsTo: Recommendation
 }
 
 type Section {

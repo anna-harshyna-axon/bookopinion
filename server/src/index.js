@@ -6,12 +6,16 @@ const Query = require('./resolvers/Query')
 const Mutation = require('./resolvers/Mutation')
 const User = require('./resolvers/User')
 const Comment = require('./resolvers/Comment')
+const Recommendation = require('./resolvers/Recommendation')
+const Section = require('./resolvers/Section')
 
 const resolvers = {
   Query,
   Mutation,
   User,
   Comment,
+  Recommendation,
+  Section,
 }
 
 const fs = require('fs')

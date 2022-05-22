@@ -10,7 +10,9 @@ const Footer = () => {
   return (
     <Stack
       component="section"
-      p={5}
+      pt={5}
+      pb={3}
+      px={{ xs: 3, md: 30 }}
       spacing={3}
       bgcolor="#85CDEC"
       justifyContent="center"

@@ -88,7 +88,7 @@ const Profile = () => {
             <Stack
               direction={{ xs: 'column', md: 'row' }}
               spacing={2}
-              alignItems="flex-end"
+              alignItems={{ xs: 'flex-start', md: 'flex-end' }}
             >
               <Box width="300px">
                 <Controller

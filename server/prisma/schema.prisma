@@ -13,8 +13,8 @@ model Comment {
   content String
   postedBy    User?    @relation(fields: [postedById], references: [id])
   postedById  Int?
-  belongTo    Recommendation?    @relation(fields: [belongToId], references: [id])
-  belongToId  Int?
+  belongsTo    Recommendation?    @relation(fields: [belongsToId], references: [id])
+  belongsToId  Int?
 }
 
 model User {
