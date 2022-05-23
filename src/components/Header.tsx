@@ -8,7 +8,7 @@ import {
 } from '@mui/material'
 import { IconProfile } from 'assets/icons'
 import Logo from 'assets/logo.png'
-import { AUTH_TOKEN } from 'constants.js'
+import { useAuth } from 'hooks/use-auth'
 import { useSnackbar } from 'notistack'
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -17,15 +17,17 @@ const Header = () => {
   const theme = useTheme()
   const navigate = useNavigate()
 
+  const { authToken, logout } = useAuth()
+
   const { enqueueSnackbar } = useSnackbar()
 
   const location = useLocation()
 
   const isLoginPage = location.pathname === '/login'
 
-  const smallerThanDesktop = useMediaQuery(theme.breakpoints.down('md'))
+  const isMainPage = location.pathname === '/'
 
-  const authToken = localStorage.getItem(AUTH_TOKEN)
+  const smallerThanDesktop = useMediaQuery(theme.breakpoints.down('md'))
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
@@ -58,7 +60,7 @@ const Header = () => {
         />
       </Link>
 
-      {!smallerThanDesktop && (
+      {!smallerThanDesktop && !isMainPage && (
         <Link
           to="/"
           style={{
@@ -105,7 +107,7 @@ const Header = () => {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                localStorage.removeItem(AUTH_TOKEN)
+                logout()
                 navigate(`/`)
                 enqueueSnackbar('Ви вийшли з вашого акаунту', {
                   variant: 'success',

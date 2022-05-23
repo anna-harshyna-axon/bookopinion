@@ -1,10 +1,16 @@
-function getComments(parent, args, context) {
-  return context.prisma.comment.findMany()
+async function getComments(parent, args, context) {
+  return await context.prisma.comment.findMany()
 }
 
-function getSection(parent, args, context) {
-  return context.prisma.section.findUnique({
+async function getSection(parent, args, context) {
+  return await context.prisma.section.findUnique({
     where: { id: Number(args.filter) },
+  })
+}
+
+async function getRecommendationDetails(parent, args, context) {
+  return await context.prisma.recommendation.findUnique({
+    where: { id: Number(args.id) },
   })
 }
 
@@ -31,4 +37,5 @@ module.exports = {
   getMyProfile,
   getRecommendations,
   getSection,
+  getRecommendationDetails,
 }

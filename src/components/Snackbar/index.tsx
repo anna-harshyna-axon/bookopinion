@@ -4,7 +4,7 @@ import { useRef } from 'react'
 
 export const StyledProvider = styled(Provider)(({ theme }) => ({
   '&.SnackbarContent-root': {
-    width: '400px',
+    width: '360px',
     flexWrap: 'nowrap',
     alignItems: 'flex-start',
   },

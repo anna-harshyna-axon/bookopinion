@@ -42,34 +42,7 @@ async function postComment(parent, args, context, info) {
       content: args.content,
       createdAt: new Date(),
       postedBy: { connect: { id: userId } },
-    },
-  })
-}
-
-async function createRecommendation(parent, args, context, info) {
-  const { title, author, description, shopUrl, imageUrl, section } = args
-
-  return await context.prisma.recommendation.create({
-    data: {
-      title,
-      author,
-      description,
-      shopUrl,
-      imageUrl,
-      // section: { connect: { id: section } },
-    },
-  })
-}
-
-async function addSection(parent, args, context, info) {
-  return await context.prisma.recommendation.update({
-    where: { id: Number(args.id) },
-    data: {
-      sectionId: {
-        connect: {
-          id: args.sectionId,
-        },
-      },
+      belongsTo: { connect: { id: Number(args.recommendationId) } },
     },
   })
 }
@@ -89,17 +62,10 @@ async function deleteComment(parent, args, context, info) {
   return await context.prisma.comment.deleteMany({})
 }
 
-async function deleteRecommendations(parent, args, context, info) {
-  return await context.prisma.recommendation.deleteMany({})
-}
-
 module.exports = {
-  addSection,
   signup,
   login,
   postComment,
   deleteComment,
   updateMyProfile,
-  deleteRecommendations,
-  createRecommendation,
 }

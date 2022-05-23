@@ -36,7 +36,7 @@ const FictionSection = () => {
           textAlign="center"
           mb={{ xs: 4, md: 0 }}
         >
-           Художня література
+          Художня література
         </Typography>
 
         <Box>
