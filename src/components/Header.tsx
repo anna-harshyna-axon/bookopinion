@@ -7,7 +7,7 @@ import {
   useTheme,
 } from '@mui/material'
 import { IconProfile } from 'assets/icons'
-import Logo from 'assets/logo.png'
+import Logo from 'assets/logo.svg'
 import { useAuth } from 'hooks/use-auth'
 import { useSnackbar } from 'notistack'
 import { useState } from 'react'
@@ -118,14 +118,14 @@ const Header = () => {
             </MenuItem>
           </Menu>
         </>
-      ) : (
+      ) : !isLoginPage ? (
         <Link
           to="/login"
           style={{ textDecoration: 'none', color: '#FFF', fontWeight: 600 }}
         >
           Увійти
         </Link>
-      )}
+      ) : null}
     </Box>
   )
 }

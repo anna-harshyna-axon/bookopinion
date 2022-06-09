@@ -5,7 +5,11 @@ import { textFieldError } from 'lib/textFieldError'
 import { nameValidation, required } from 'lib/validations'
 import { useSnackbar } from 'notistack'
 import { Controller, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+
+type Props = {
+  recommendationId: number
+  onSubmit: () => void
+}
 
 type FormValues = {
   comment: string
@@ -13,37 +17,21 @@ type FormValues = {
 
 const POST_COMMENT_MUTATION = gql`
   mutation PostComment($recommendationId: ID!, $content: String!) {
-    postComment(recommendationId: $recommendatioId, content: $content) {
+    postComment(recommendationId: $recommendationId, content: $content) {
       id
     }
   }
 `
 
-export const CommentForm = () => {
+export const CommentForm = ({ recommendationId, onSubmit }: Props) => {
   const { enqueueSnackbar } = useSnackbar()
 
-  const navigate = useNavigate()
-
-  const { control, handleSubmit } = useForm<FormValues>()
-
-  // () => navigate('/')
+  const { control, handleSubmit, reset } = useForm<FormValues>()
 
   const [postComment] = useMutation(POST_COMMENT_MUTATION, {
-    // update: (cache, { data: { updateMyProfile } }) => {
-    //   const data = cache.readQuery({
-    //     query: PROFILE_QUERY,
-    //   }) as any
-
-    //   cache.writeQuery({
-    //     query: PROFILE_QUERY,
-    //     data: {
-    //       getMyProfile: {
-    //         name: data.getMyProfile.name,
-    //       },
-    //     },
-    //   })
-    // },
     onCompleted: () => {
+      onSubmit()
+      reset()
       enqueueSnackbar('Ваш коментар успішно додано', { variant: 'success' })
     },
   })
@@ -55,8 +43,8 @@ export const CommentForm = () => {
       onSubmit={handleSubmit(values => {
         postComment({
           variables: {
-            recommendationId: 115,
-            name: values.comment,
+            recommendationId,
+            content: values.comment,
           },
         })
       })}

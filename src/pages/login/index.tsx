@@ -64,7 +64,7 @@ const Login = () => {
           fontWeight="600"
           color="secondary.main"
         >
-           Вхід
+          Вхід
         </Typography>
         <Divider />
         <form

@@ -1,12 +1,26 @@
 import { Box, Button, Stack, Typography } from '@mui/material'
 import idea from 'assets/illustrations/idea.svg'
 import womanTyping from 'assets/illustrations/woman-typing.svg'
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 import { Sections } from './components/Sections'
 
-// const generateRandomRecommendation = () => {}
+const recommendationIds: Array<number> = [
+  115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126,
+]
+
+const generateRecommendationId = () => {
+  return recommendationIds[Math.floor(Math.random() * recommendationIds.length)]
+}
 
 const Main = () => {
+  useEffect(() => {
+    generateRecommendationId()
+  }, [])
+
+  console.log(generateRecommendationId())
+
   return (
     <Stack pt={5} pb={10} px={{ xs: 5, md: 18 }} spacing={8}>
       <Box
@@ -63,6 +77,9 @@ const Main = () => {
             Згенеруйте випадкову рекомендацію за допомогою кнопки
           </Typography>
           <Button
+            component={Link}
+            to={`recommendation/${generateRecommendationId()}`}
+            state={{ id: generateRecommendationId() }}
             color="secondary"
             variant="contained"
             disableRipple

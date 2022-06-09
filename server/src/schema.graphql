@@ -7,10 +7,10 @@ type Query {
 }
 
 type Mutation {
-  getComment(id: ID!): Comment!
+  getComment(commentId: ID!): Comment!
   postComment(recommendationId: ID!, content: String!): Comment!
-  deleteComment(userId: ID!): Comment!
-  updateComment(userId: ID!, content: String!): Comment!
+  deleteComment(commentId: ID!): Comment!
+  updateComment(commentId: ID!, content: String!): Comment!
 
   addToFavorites: User!
   removeFromFavorites: User!

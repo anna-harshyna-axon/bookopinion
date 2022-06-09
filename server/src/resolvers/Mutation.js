@@ -7,6 +7,10 @@ async function signup(parent, args, context, info) {
   const user = await context.prisma.user.create({ data: { ...args, password } })
   const token = jwt.sign({ userId: user.id }, APP_SECRET)
 
+  //   const foundUser = await context.prisma.user.findOne({ user. })
+
+  // if (foundUser) throw new Error('Email is already in use')
+
   return {
     token,
     user,
@@ -17,6 +21,7 @@ async function login(parent, args, context, info) {
   const user = await context.prisma.user.findUnique({
     where: { email: args.email },
   })
+
   if (!user) {
     throw new Error('No such user found')
   }
@@ -58,8 +63,31 @@ async function updateMyProfile(parent, args, context, info) {
   })
 }
 
+async function updateComment(parent, args, context, info) {
+  return await context.prisma.comment.update({
+    where: {
+      id: Number(args.commentId),
+    },
+    data: {
+      content: args.content,
+    },
+  })
+}
+
 async function deleteComment(parent, args, context, info) {
-  return await context.prisma.comment.deleteMany({})
+  return await context.prisma.comment.delete({
+    where: {
+      id: Number(args.commentId),
+    },
+  })
+}
+
+async function getComment(parent, args, context) {
+  return await context.prisma.comment.findUnique({
+    where: {
+      id: Number(args.commentId),
+    },
+  })
 }
 
 module.exports = {
@@ -68,4 +96,6 @@ module.exports = {
   postComment,
   deleteComment,
   updateMyProfile,
+  getComment,
+  updateComment,
 }

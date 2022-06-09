@@ -8,24 +8,13 @@ export const theme = createTheme({
     secondary: {
       main: '#F6A975',
     },
-    // error: {
-    //   main: '#BF2600',
-    //   dark: '#98280C',
-    //   contrastText: '#FFF',
-    // },
-    // info: {
-    //   main: '#1E3C3C',
-    // },
-    // success: {
-    //   main: '#3E8D90',
-    // },
-    // background: {
-    //   default: '#FFF',
-    // },
     text: {
       primary: '#000',
       secondary: '#FFF',
-      disabled: '#E5E5E5',
+      disabled: '#AAA7A7',
+    },
+    info: {
+      main: '#AAA7A7',
     },
   },
 
@@ -123,13 +112,6 @@ export const theme = createTheme({
         },
       },
     },
-    MuiList: {
-      styleOverrides: {
-        root: {
-          padding: '0 !important',
-        },
-      },
-    },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
@@ -158,8 +140,8 @@ export const theme = createTheme({
           color: '#FFF',
         },
         sizeSmall: {
-          height: '78px',
-          width: '110px',
+          height: '50px',
+          width: '30px',
         },
         sizeLarge: {
           padding: '36px 50px',

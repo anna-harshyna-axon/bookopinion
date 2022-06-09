@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 import { Box, CircularProgress, Divider, Link, Typography } from '@mui/material'
+import { IconInfo } from 'assets/icons'
 import { useAuth } from 'hooks/use-auth'
 import { useLocation } from 'react-router-dom'
 
@@ -9,6 +10,7 @@ import { CommentForm } from './components/CommentForm'
 const RECOMMENDATION_QUERY = gql`
   query RecommendationQuery($id: ID!) {
     getRecommendationDetails(id: $id) {
+      id
       title
       author
       description
@@ -19,6 +21,7 @@ const RECOMMENDATION_QUERY = gql`
         createdAt
         content
         postedBy {
+          id
           name
         }
       }
@@ -33,7 +36,7 @@ const RecommendationDetails = () => {
 
   const id = loc.state.id
 
-  const { data, loading } = useQuery(RECOMMENDATION_QUERY, {
+  const { data, loading, refetch } = useQuery(RECOMMENDATION_QUERY, {
     variables: {
       id,
     },
@@ -56,7 +59,7 @@ const RecommendationDetails = () => {
           alignItems="center"
           justifyContent="center"
           px={{ xs: 4, sm: 10 }}
-          py={5}
+          py={6}
         >
           <Typography mb={1}>{details.author}</Typography>
           <Typography mb={3} variant="h2" fontWeight="600">
@@ -84,25 +87,41 @@ const RecommendationDetails = () => {
           </Box>
 
           {authToken ? (
-            <CommentForm />
+            <CommentForm recommendationId={details.id} onSubmit={refetch} />
           ) : (
-            <Typography>
-              Щоб залишити свій коментар, будь ласка, увійдіть у свій акаунт або
-              зареєструйтесь
-            </Typography>
+            <Box display="flex" justifyContent="center" mb={10}>
+              <IconInfo viewBox="0 0 40 40" sx={{ mr: 1 }} />
+              <Typography>
+                Щоб залишити свій коментар, будь ласка,{' '}
+                <Link color="secondary" href="/login" sx={{ fontSize: '16px' }}>
+                  увійдіть
+                </Link>{' '}
+                у свій акаунт або{' '}
+                <Link
+                  color="secondary"
+                  href="/signup"
+                  sx={{ fontSize: '16px' }}
+                >
+                  зареєструйтесь
+                </Link>
+              </Typography>
+            </Box>
           )}
 
           <Box width="100%">
             <Typography mb={2}>Коментарі</Typography>
             <Divider sx={{ mb: 5 }} />
-            <Box>
-              {details.comments ? (
+            <Box width="100%">
+              {details.comments && details.comments.length > 0 ? (
                 details.comments.map((comment: any) => (
-                  <Box key={comment.id} mb={5}>
+                  <Box key={comment.id} mb={5} width="100%">
                     <Comment
+                      commentId={comment.id}
+                      userId={comment.postedBy.id}
                       createdAt={comment.createdAt}
                       content={comment.content}
                       userName={comment.postedBy.name}
+                      refetch={refetch}
                     />
                   </Box>
                 ))

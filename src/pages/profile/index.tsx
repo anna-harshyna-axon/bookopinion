@@ -40,7 +40,7 @@ const Profile = () => {
   // () => navigate('/')
 
   const [updateMyProfile] = useMutation(UPDATE_PROFILE_MUTATION, {
-    update: (cache, { data: { updateMyProfile } }) => {
+    update: cache => {
       const data = cache.readQuery({
         query: PROFILE_QUERY,
       }) as any
@@ -58,8 +58,6 @@ const Profile = () => {
       enqueueSnackbar('Профіль успішно оновлено', { variant: 'success' })
     },
   })
-
-  console.log(data)
 
   return (
     <Stack p={6} component="section" width="100%" height="600px" spacing={8}>
