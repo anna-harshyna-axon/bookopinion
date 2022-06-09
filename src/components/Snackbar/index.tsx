@@ -29,6 +29,8 @@ export const SnackbarProvider = ({
     <StyledProvider
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       ref={notistackRef}
+      preventDuplicate
+      autoHideDuration={1500}
     >
       {children}
     </StyledProvider>

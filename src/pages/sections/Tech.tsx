@@ -65,7 +65,7 @@ const TechnicalSection = () => {
               author: string
               imageUrl: string
             }) => (
-              <Grid key={recommendation.id} item xs={12} sm={6} md={3}>
+              <Grid key={recommendation.id} item xs={12} sm={6} md={4}>
                 <Box display="flex" justifyContent="center">
                   <RecommendationItem
                     id={recommendation.id}

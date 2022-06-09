@@ -77,10 +77,6 @@ const Header = () => {
       {authToken ? (
         <>
           <IconButton
-            id="basic-button"
-            aria-controls={open ? 'basic-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
             sx={{ width: '24px', height: '24px' }}
             disableRipple
@@ -88,15 +84,7 @@ const Header = () => {
             <IconProfile viewBox="0 0 36 36" />
           </IconButton>
 
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button',
-            }}
-          >
+          <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
             <MenuItem
               onClick={() => {
                 navigate('/profile')
@@ -107,6 +95,7 @@ const Header = () => {
             </MenuItem>
             <MenuItem
               onClick={() => {
+                setAnchorEl(null)
                 logout()
                 navigate(`/`)
                 enqueueSnackbar('Ви вийшли з вашого акаунту', {

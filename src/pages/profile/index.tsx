@@ -1,9 +1,17 @@
 import { gql, useMutation, useQuery } from '@apollo/client'
-import { Box, Button, CircularProgress, Stack, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Grid,
+  Stack,
+  Typography,
+} from '@mui/material'
 import { TextField } from 'components/basic/TextField'
 import { textFieldError } from 'lib/textFieldError'
 import { nameValidation, required } from 'lib/validations'
 import { useSnackbar } from 'notistack'
+import { RecommendationItem } from 'pages/recommendation/components/RecommendationItem'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
@@ -16,6 +24,14 @@ const PROFILE_QUERY = gql`
     getMyProfile {
       id
       name
+      favorites {
+        addedRecommendation {
+          id
+          title
+          author
+          imageUrl
+        }
+      }
     }
   }
 `
@@ -33,34 +49,19 @@ const Profile = () => {
 
   const navigate = useNavigate()
 
-  const { data, loading, error } = useQuery(PROFILE_QUERY)
+  const { data, loading, refetch } = useQuery(PROFILE_QUERY)
 
-  const { control, handleSubmit } = useForm<FormValues>()
-
-  // () => navigate('/')
+  const { control, handleSubmit, formState } = useForm<FormValues>()
 
   const [updateMyProfile] = useMutation(UPDATE_PROFILE_MUTATION, {
-    update: cache => {
-      const data = cache.readQuery({
-        query: PROFILE_QUERY,
-      }) as any
-
-      cache.writeQuery({
-        query: PROFILE_QUERY,
-        data: {
-          getMyProfile: {
-            name: data.getMyProfile.name,
-          },
-        },
-      })
-    },
     onCompleted: () => {
+      refetch()
       enqueueSnackbar('Профіль успішно оновлено', { variant: 'success' })
     },
   })
 
   return (
-    <Stack p={6} component="section" width="100%" height="600px" spacing={8}>
+    <Stack p={6} component="section" width="100%" minHeight="600px" spacing={8}>
       {loading && (
         <Box display="flex" justifyContent="center" alignItems="center">
           <CircularProgress />
@@ -83,12 +84,8 @@ const Profile = () => {
               })
             })}
           >
-            <Stack
-              direction={{ xs: 'column', md: 'row' }}
-              spacing={2}
-              alignItems={{ xs: 'flex-start', md: 'flex-end' }}
-            >
-              <Box width="300px">
+            <Stack direction={{ xs: 'column', sm: 'row' }}>
+              <Box width="300px" mr={{ xs: 0, sm: 2 }}>
                 <Controller
                   name="name"
                   control={control}
@@ -100,7 +97,6 @@ const Profile = () => {
                   render={({ field, fieldState }) => (
                     <TextField
                       label="Ім'я"
-                      required
                       margin="dense"
                       inputProps={{ maxLength: 30 }}
                       {...textFieldError(fieldState.error)}
@@ -109,11 +105,14 @@ const Profile = () => {
                   )}
                 />
               </Box>
+
               <Button
                 type="submit"
                 variant="contained"
                 color="secondary"
                 disableRipple
+                disabled={!formState.isDirty}
+                sx={{ width: '146px', mt: 2.25 }}
               >
                 Зберегти
               </Button>
@@ -127,20 +126,41 @@ const Profile = () => {
           Обране
         </Typography>
 
-        <Typography mb={3}>
-          Ви ще не додали жодної рекомендації в обране
-        </Typography>
+        {data &&
+        data.getMyProfile.favorites &&
+        data.getMyProfile.favorites.length > 0 ? (
+          <Grid container spacing={3}>
+            {data.getMyProfile.favorites.map(({ addedRecommendation }: any) => (
+              <Grid key={addedRecommendation.id} item xs={12} sm={6} md={4}>
+                <Box display="flex" justifyContent="center">
+                  <RecommendationItem
+                    id={addedRecommendation.id}
+                    title={addedRecommendation.title}
+                    author={addedRecommendation.author}
+                    imageUrl={addedRecommendation.imageUrl}
+                  />
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+          <>
+            <Typography mb={3}>
+              Ви ще не додали жодної рекомендації в обране
+            </Typography>
 
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          disableRipple
-          size="large"
-          onClick={() => navigate('/')}
-        >
-          До списку розділів
-        </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disableRipple
+              size="large"
+              onClick={() => navigate('/')}
+            >
+              До списку розділів
+            </Button>
+          </>
+        )}
       </Box>
     </Stack>
   )

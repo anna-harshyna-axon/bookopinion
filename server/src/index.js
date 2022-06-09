@@ -8,6 +8,7 @@ const User = require('./resolvers/User')
 const Comment = require('./resolvers/Comment')
 const Recommendation = require('./resolvers/Recommendation')
 const Section = require('./resolvers/Section')
+const Favorite = require('./resolvers/Favorite')
 
 const resolvers = {
   Query,
@@ -16,6 +17,7 @@ const resolvers = {
   Comment,
   Recommendation,
   Section,
+  Favorite,
 }
 
 const fs = require('fs')

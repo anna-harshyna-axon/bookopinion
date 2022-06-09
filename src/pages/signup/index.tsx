@@ -9,6 +9,7 @@ import {
   minLength,
   nameValidation,
   passwordValidation,
+  required,
 } from 'lib/validations.ts'
 import { useSnackbar } from 'notistack'
 import { Controller, useForm } from 'react-hook-form'
@@ -32,7 +33,7 @@ const Signup = () => {
   const navigate = useNavigate()
   const { enqueueSnackbar } = useSnackbar()
 
-  const { control, handleSubmit, setError } = useForm<FormValues>({
+  const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       name: '',
       email: '',
@@ -85,7 +86,8 @@ const Signup = () => {
               name="name"
               control={control}
               rules={{
-                ...nameValidation,
+                ...required,
+                // ...nameValidation,
                 minLength: minLength(2, 'Ім`я має бути не менше 2 символів'),
               }}
               render={({ field, fieldState }) => (

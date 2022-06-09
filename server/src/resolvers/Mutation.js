@@ -7,10 +7,6 @@ async function signup(parent, args, context, info) {
   const user = await context.prisma.user.create({ data: { ...args, password } })
   const token = jwt.sign({ userId: user.id }, APP_SECRET)
 
-  //   const foundUser = await context.prisma.user.findOne({ user. })
-
-  // if (foundUser) throw new Error('Email is already in use')
-
   return {
     token,
     user,
@@ -23,7 +19,7 @@ async function login(parent, args, context, info) {
   })
 
   if (!user) {
-    throw new Error('No such user found')
+    throw new Error('Invalid password')
   }
 
   const valid = await bcrypt.compare(args.password, user.password)
@@ -90,12 +86,33 @@ async function getComment(parent, args, context) {
   })
 }
 
+async function addToFavorites(parent, args, context, info) {
+  const { userId } = context
+
+  return await context.prisma.favorite.create({
+    data: {
+      addedBy: { connect: { id: userId } },
+      addedRecommendation: { connect: { id: Number(args.recommendationId) } },
+    },
+  })
+}
+
+async function deleteFromFavorites(parent, args, context, info) {
+  return await context.prisma.favorite.delete({
+    where: {
+      id: Number(args.favoriteId),
+    },
+  })
+}
+
 module.exports = {
   signup,
   login,
   postComment,
+  addToFavorites,
   deleteComment,
   updateMyProfile,
   getComment,
   updateComment,
+  deleteFromFavorites,
 }

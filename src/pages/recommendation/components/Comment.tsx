@@ -11,7 +11,6 @@ import { TextField } from 'components/basic/TextField'
 import { ConfirmationDialog } from 'components/basic/TextField/ConfirmationDialog'
 import { useAuth } from 'hooks/use-auth'
 import { useBoolean } from 'hooks/use-boolean'
-import jwt_decode from 'jwt-decode'
 import { localizeDate } from 'lib/localizeDate'
 import { textFieldError } from 'lib/textFieldError'
 import { required } from 'lib/validations'
@@ -59,7 +58,7 @@ type FormValues = {
 }
 
 export const Comment = (props: Props) => {
-  const { authToken } = useAuth()
+  const { userId } = useAuth()
   const { enqueueSnackbar } = useSnackbar()
 
   const [selectedCommentId, setSelectedCommentId] = useState<number | null>(
@@ -101,15 +100,7 @@ export const Comment = (props: Props) => {
 
   const { handleSubmit, control } = useForm<FormValues>({})
 
-  const getDecodedUserId = () => {
-    const decodedToken: Record<string, any> | undefined = authToken
-      ? jwt_decode(authToken)
-      : undefined
-
-    return decodedToken?.userId.toString()
-  }
-
-  const commentBelongsToUser = getDecodedUserId() === props.userId
+  const commentBelongsToUser = userId === props.userId
 
   return (
     <>
@@ -171,7 +162,7 @@ export const Comment = (props: Props) => {
           deleteDialogOpen.setFalse()
         }}
       />
-      {console.log(selectedCommentId)}
+
       <ConfirmationDialog
         isOpen={editDialogOpen.isTrue}
         onClose={editDialogOpen.setFalse}

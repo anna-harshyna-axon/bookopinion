@@ -7,11 +7,10 @@ export const ErrorHelperText = ({ msg }: { msg: string }) => {
   }
 
   return (
-    <Box display="flex" fontWeight="400" alignItems="flex-start" pt={0.5}>
-      <Box pr={0.5} display="flex">
-        <ErrorIcon color="error" />
-      </Box>
-      <Typography variant="subtitle1" display="inline">
+    <Box display="flex" alignItems="center" pt={0.5}>
+      <ErrorIcon color="error" />
+
+      <Typography variant="subtitle1" fontWeight="400" pl={0.5}>
         {msg}
       </Typography>
     </Box>

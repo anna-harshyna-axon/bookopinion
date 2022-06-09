@@ -12,8 +12,8 @@ type Mutation {
   deleteComment(commentId: ID!): Comment!
   updateComment(commentId: ID!, content: String!): Comment!
 
-  addToFavorites: User!
-  removeFromFavorites: User!
+  addToFavorites(recommendationId: ID!): Favorite!
+  deleteFromFavorites(favoriteId: ID!): Favorite!
 
   updateMyProfile(id: ID!, name: String!): User!
 
@@ -31,6 +31,7 @@ type User {
   name: String!
   email: String!
   comments: [Comment]
+  favorites: [Favorite]
 }
 
 type Recommendation {
@@ -42,6 +43,7 @@ type Recommendation {
   imageUrl: String!
   comments: [Comment]
   section: Section
+  favorites: [Favorite]
 }
 
 scalar Date
@@ -58,4 +60,10 @@ type Section {
   id: ID!
   name: String!
   recommendations: [Recommendation]
+}
+
+type Favorite {
+  id: ID!
+  addedBy: User
+  addedRecommendation: Recommendation
 }

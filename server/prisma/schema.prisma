@@ -23,6 +23,7 @@ model User {
   email     String   @unique
   password  String
   comments  Comment[]
+  favorites Favorite[]
 }
 
 model Recommendation {
@@ -35,6 +36,7 @@ model Recommendation {
   comments    Comment[]
   section     Section?    @relation(fields: [sectionId], references: [id])
   sectionId  Int?
+  favorites Favorite[]
 }
 
 model Section {
@@ -42,3 +44,12 @@ model Section {
   name     String
   recommendations Recommendation[]
 }
+
+model Favorite {
+  id                       Int      @id @default(autoincrement())
+  addedBy                  User? @relation(fields: [addedById], references: [id])
+  addedById                Int?
+  addedRecommendation      Recommendation?   @relation(fields: [addedRecommendationId], references: [id])
+  addedRecommendationId    Int?
+}
+

@@ -19,8 +19,6 @@ const Main = () => {
     generateRecommendationId()
   }, [])
 
-  console.log(generateRecommendationId())
-
   return (
     <Stack pt={5} pb={10} px={{ xs: 5, md: 18 }} spacing={8}>
       <Box

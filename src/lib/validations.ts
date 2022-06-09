@@ -2,23 +2,22 @@ const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,90}$/
 
 const emailRegex = /\S+@\S+\.\S+/
 
-const nameRegex =
-  /^([A-Z, a-z, аАбБвВгГґҐдДеЕєЄжЖзЗиИіІїЇйЙкКлЛмМнНоОпПрРсСтТуУфФхХцЦчЧшШщЩьЬюЮяЯ])\S+$/
+const nameRegex = /^[А-Я][а-я]*$/
 
 export const required = {
-  required: 'This field is required',
+  required: "Це поле є обов'язковим",
 }
 
 export const minLength = (
   value: number,
-  message: string = `Please lengthen this text to ${value} characters or more`,
+  message: string = `Мінімальна довжина -  ${value} символів `,
 ) => {
   return { value, message }
 }
 
 export const maxLength = (
   value: number,
-  message: string = `Please shorten this text to ${value} characters or less`,
+  message: string = `Максимальна довжина - ${value} символів`,
 ) => {
   return { value, message }
 }

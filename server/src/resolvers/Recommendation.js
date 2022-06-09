@@ -10,7 +10,14 @@ function comments(parent, _, context) {
     .comments()
 }
 
+function favorites(parent, _, context) {
+  return context.prisma.recommendation
+    .findUnique({ where: { id: parent.id } })
+    .favorites()
+}
+
 module.exports = {
   section,
   comments,
+  favorites,
 }

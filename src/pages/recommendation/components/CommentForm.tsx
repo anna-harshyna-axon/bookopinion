@@ -2,7 +2,7 @@ import { gql, useMutation, useQuery } from '@apollo/client'
 import { Box, Button, CircularProgress, Stack, Typography } from '@mui/material'
 import { TextField } from 'components/basic/TextField'
 import { textFieldError } from 'lib/textFieldError'
-import { nameValidation, required } from 'lib/validations'
+import { maxLength, minLength, required } from 'lib/validations'
 import { useSnackbar } from 'notistack'
 import { Controller, useForm } from 'react-hook-form'
 
@@ -26,15 +26,22 @@ const POST_COMMENT_MUTATION = gql`
 export const CommentForm = ({ recommendationId, onSubmit }: Props) => {
   const { enqueueSnackbar } = useSnackbar()
 
-  const { control, handleSubmit, reset } = useForm<FormValues>()
+  const { control, handleSubmit, reset, watch } = useForm<FormValues>({
+    defaultValues: {
+      comment: '',
+    },
+  })
 
   const [postComment] = useMutation(POST_COMMENT_MUTATION, {
     onCompleted: () => {
-      onSubmit()
       reset()
-      enqueueSnackbar('Ваш коментар успішно додано', { variant: 'success' })
+      onSubmit()
+      enqueueSnackbar('Коментар успішно опубліковано', { variant: 'success' })
     },
   })
+  const commentValue = watch('comment')
+
+  console.log(commentValue)
 
   return (
     <Stack
@@ -56,7 +63,8 @@ export const CommentForm = ({ recommendationId, onSubmit }: Props) => {
           control={control}
           rules={{
             ...required,
-            // length
+            minLength: minLength(3),
+            maxLength: maxLength(200),
           }}
           render={({ field, fieldState }) => (
             <TextField
