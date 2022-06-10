@@ -41,13 +41,15 @@ const Signup = () => {
     },
   })
 
-  const [signup] = useMutation(SIGNUP_MUTATION, {
+  const [signup, { error }] = useMutation(SIGNUP_MUTATION, {
     onCompleted: ({ signup }) => {
       localStorage.setItem(AUTH_TOKEN, signup.token)
       navigate('/')
       enqueueSnackbar('Вас успішно pареєстровано', { variant: 'success' })
     },
   })
+
+  if (error) enqueueSnackbar(error.message, { variant: 'error' })
 
   return (
     <Box

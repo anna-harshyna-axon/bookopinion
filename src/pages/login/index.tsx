@@ -39,13 +39,15 @@ const Login = () => {
     },
   })
 
-  const [login] = useMutation(LOGIN_MUTATION, {
+  const [login, { error }] = useMutation(LOGIN_MUTATION, {
     onCompleted: ({ login }) => {
       localStorage.setItem(AUTH_TOKEN, login.token)
       navigate('/')
       enqueueSnackbar('Вас успішно авторизовано', { variant: 'success' })
     },
   })
+
+  if (error) enqueueSnackbar(error.message, { variant: 'error' })
 
   return (
     <Box

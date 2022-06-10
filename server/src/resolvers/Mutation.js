@@ -3,6 +3,14 @@ const jwt = require('jsonwebtoken')
 const { APP_SECRET } = require('../utils')
 
 async function signup(parent, args, context, info) {
+  const userExists = await context.prisma.user.findUnique({
+    where: { email: args.email },
+  })
+
+  if (userExists) {
+    throw new Error('Користувача з такою поштою вже зареєстровано')
+  }
+
   const password = await bcrypt.hash(args.password, 10)
   const user = await context.prisma.user.create({ data: { ...args, password } })
   const token = jwt.sign({ userId: user.id }, APP_SECRET)
@@ -19,12 +27,13 @@ async function login(parent, args, context, info) {
   })
 
   if (!user) {
-    throw new Error('Invalid password')
+    throw new Error('Користувача з такою поштою не знайдено')
   }
 
   const valid = await bcrypt.compare(args.password, user.password)
+
   if (!valid) {
-    throw new Error('Invalid password')
+    throw new Error('Введено неправильний пароль')
   }
 
   const token = jwt.sign({ userId: user.id }, APP_SECRET)

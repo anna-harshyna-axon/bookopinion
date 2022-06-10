@@ -78,11 +78,9 @@ const PROFILE_QUERY = gql`
 const RecommendationDetails = () => {
   const { enqueueSnackbar } = useSnackbar()
 
-  const { userId } = useAuth()
+  const { authToken, userId } = useAuth()
 
   const loc: any = useLocation()
-
-  const { authToken } = useAuth()
 
   const id = loc.state.id
 
@@ -124,49 +122,52 @@ const RecommendationDetails = () => {
 
       {details && (
         <Box px={{ xs: 4, sm: 10 }} py={6}>
-          <Box display="flex" alignItems="center">
-            <IconButton
-              disableRipple
-              sx={{ p: 0, mr: 1 }}
-              onClick={() => {
-                if (
-                  details.favorites.some(
-                    (favorite: any) => favorite.addedBy.id === userId,
-                  )
-                ) {
-                  deleteFromFavorites({
-                    variables: {
-                      favoriteId: details.favorites.find(
-                        (favorite: any) => favorite.addedBy.id === userId,
-                      ).id,
-                    },
-                  })
-                } else {
-                  addToFavorites({
-                    variables: {
-                      recommendationId: details.id,
-                    },
-                  })
-                }
-                refetch()
-              }}
-            >
-              {details.favorites.some(
-                (favorite: any) => favorite.addedBy.id === userId,
-              ) ? (
-                <IconFilledStar viewBox="0 0 40 40" />
-              ) : (
-                <IconEmptyStar viewBox="0 0 40 40" />
-              )}
-            </IconButton>
-            <Typography color="text.disabled" variant="caption">
-              {details.favorites.some(
-                (favorite: any) => favorite.addedBy.id === userId,
-              )
-                ? 'В обраному'
-                : 'Додати в обране'}
-            </Typography>
-          </Box>
+          {authToken && (
+            <Box display="flex" alignItems="center">
+              <IconButton
+                disableRipple
+                sx={{ p: 0, mr: 1 }}
+                onClick={() => {
+                  if (
+                    details.favorites.some(
+                      (favorite: any) => favorite.addedBy.id === userId,
+                    )
+                  ) {
+                    deleteFromFavorites({
+                      variables: {
+                        favoriteId: details.favorites.find(
+                          (favorite: any) => favorite.addedBy.id === userId,
+                        ).id,
+                      },
+                    })
+                  } else {
+                    addToFavorites({
+                      variables: {
+                        recommendationId: details.id,
+                      },
+                    })
+                  }
+                  refetch()
+                }}
+              >
+                {details.favorites.some(
+                  (favorite: any) => favorite.addedBy.id === userId,
+                ) ? (
+                  <IconFilledStar viewBox="0 0 40 40" />
+                ) : (
+                  <IconEmptyStar viewBox="0 0 40 40" />
+                )}
+              </IconButton>
+              <Typography color="text.disabled" variant="caption">
+                {details.favorites.some(
+                  (favorite: any) => favorite.addedBy.id === userId,
+                )
+                  ? 'В обраному'
+                  : 'Додати в обране'}
+              </Typography>
+            </Box>
+          )}
+
           <Box
             display="flex"
             flexDirection="column"
