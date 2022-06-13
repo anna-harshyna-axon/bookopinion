@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import { Box, CircularProgress, Grid, Typography } from '@mui/material'
 import tech from 'assets/illustrations/tech.svg'
-import { RecommendationItem } from 'pages/recommendation/components/RecommendationItem'
+import { RecommendationItem } from 'pages/sections/components/RecommendationItem'
 
 const SECTION_QUERY = gql`
   {

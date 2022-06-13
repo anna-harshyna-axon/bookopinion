@@ -2,7 +2,7 @@ const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,90}$/
 
 const emailRegex = /\S+@\S+\.\S+/
 
-const nameRegex = /^[А-Я][а-я]*$/
+const nameRegex = /^[A-Za-z.!@?#"$%&:;() *,;\-=[\\\]_{|}<>\u0400-\u04FF]*$/g
 
 export const required = {
   required: "Це поле є обов'язковим",

@@ -9,9 +9,9 @@ import {
 } from '@mui/material'
 import { TextField } from 'components/basic/TextField'
 import { textFieldError } from 'lib/textFieldError'
-import { nameValidation, required } from 'lib/validations'
+import { maxLength, minLength, nameValidation, required } from 'lib/validations'
 import { useSnackbar } from 'notistack'
-import { RecommendationItem } from 'pages/recommendation/components/RecommendationItem'
+import { RecommendationItem } from 'pages/sections/components/RecommendationItem'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
@@ -45,9 +45,9 @@ const UPDATE_PROFILE_MUTATION = gql`
 `
 
 const Profile = () => {
-  const { enqueueSnackbar } = useSnackbar()
-
   const navigate = useNavigate()
+
+  const { enqueueSnackbar } = useSnackbar()
 
   const { data, loading, refetch } = useQuery(PROFILE_QUERY)
 
@@ -92,6 +92,8 @@ const Profile = () => {
                   rules={{
                     ...required,
                     ...nameValidation,
+                    minLength: minLength(2),
+                    maxLength: maxLength(50),
                   }}
                   defaultValue={data.getMyProfile.name}
                   render={({ field, fieldState }) => (

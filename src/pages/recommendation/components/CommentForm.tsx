@@ -1,5 +1,5 @@
-import { gql, useMutation, useQuery } from '@apollo/client'
-import { Box, Button, CircularProgress, Stack, Typography } from '@mui/material'
+import { gql, useMutation } from '@apollo/client'
+import { Box, Button, Stack } from '@mui/material'
 import { TextField } from 'components/basic/TextField'
 import { textFieldError } from 'lib/textFieldError'
 import { maxLength, minLength, required } from 'lib/validations'
@@ -26,7 +26,7 @@ const POST_COMMENT_MUTATION = gql`
 export const CommentForm = ({ recommendationId, onSubmit }: Props) => {
   const { enqueueSnackbar } = useSnackbar()
 
-  const { control, handleSubmit, reset, watch } = useForm<FormValues>({
+  const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
       comment: '',
     },
@@ -39,9 +39,6 @@ export const CommentForm = ({ recommendationId, onSubmit }: Props) => {
       enqueueSnackbar('Коментар успішно опубліковано', { variant: 'success' })
     },
   })
-  const commentValue = watch('comment')
-
-  console.log(commentValue)
 
   return (
     <Stack

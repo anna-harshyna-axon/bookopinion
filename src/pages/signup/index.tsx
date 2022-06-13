@@ -89,15 +89,16 @@ const Signup = () => {
               control={control}
               rules={{
                 ...required,
-                // ...nameValidation,
-                minLength: minLength(2, 'Ім`я має бути не менше 2 символів'),
+                ...nameValidation,
+                minLength: minLength(2),
+                maxLength: maxLength(50),
               }}
               render={({ field, fieldState }) => (
                 <TextField
                   label="Ім'я"
                   required
                   margin="dense"
-                  inputProps={{ maxLength: 20 }}
+                  inputProps={{ maxLength: 50 }}
                   placeholder="Введіть ім'я"
                   {...textFieldError(fieldState.error)}
                   {...field}

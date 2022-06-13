@@ -3,6 +3,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Typography,
   useMediaQuery,
   useTheme,
 } from '@mui/material'
@@ -114,7 +115,9 @@ const Header = () => {
         >
           Увійти
         </Link>
-      ) : null}
+      ) : (
+        <Typography></Typography>
+      )}
     </Box>
   )
 }

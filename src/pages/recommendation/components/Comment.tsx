@@ -1,14 +1,8 @@
-import { gql, useMutation, useQuery } from '@apollo/client'
-import {
-  Box,
-  CircularProgress,
-  IconButton,
-  Tooltip,
-  Typography,
-} from '@mui/material'
+import { gql, useMutation } from '@apollo/client'
+import { Box, IconButton, Tooltip, Typography } from '@mui/material'
 import { IconDelete, IconEdit, IconUser } from 'assets/icons'
+import { ConfirmationDialog } from 'components/basic/ConfirmationDialog'
 import { TextField } from 'components/basic/TextField'
-import { ConfirmationDialog } from 'components/basic/TextField/ConfirmationDialog'
 import { useAuth } from 'hooks/use-auth'
 import { useBoolean } from 'hooks/use-boolean'
 import { localizeDate } from 'lib/localizeDate'

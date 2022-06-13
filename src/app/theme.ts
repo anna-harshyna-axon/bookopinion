@@ -18,12 +18,6 @@ export const theme = createTheme({
     },
   },
 
-  mixins: {
-    toolbar: {
-      minHeight: 56,
-    },
-  },
-
   typography: {
     fontFamily: ['Roboto', 'sans-serif'].join(','),
     h1: {
@@ -62,13 +56,11 @@ export const theme = createTheme({
     },
   },
 
-  // @TODO: why use !important?
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
           background: '#FFF',
-          // Keep old body typography
           fontSize: '0.875rem',
           lineHeight: 1.43,
           letterSpacing: 0,
@@ -148,13 +140,6 @@ export const theme = createTheme({
         },
       },
     },
-    // MuiFormHelperText: {
-    //   styleOverrides: {
-    //     root: {
-    //       margin: '0 !important',
-    //     },
-    //   },
-    // },
     MuiLink: {
       defaultProps: {
         underline: 'hover',
@@ -162,7 +147,6 @@ export const theme = createTheme({
     },
   },
 
-  // Keep old breakpoints
   breakpoints: {
     values: {
       xs: 0,

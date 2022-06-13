@@ -1,16 +1,9 @@
 import { gql, useMutation } from '@apollo/client'
 import { Box, Button, Divider, Typography } from '@mui/material'
 import { TextField } from 'components/basic/TextField'
-import { ErrorHelperText } from 'components/form/ErrorHelperText'
 import { AUTH_TOKEN } from 'constants.js'
 import { textFieldError } from 'lib/textFieldError'
-import {
-  emailValidation,
-  maxLength,
-  minLength,
-  nameValidation,
-  passwordValidation,
-} from 'lib/validations.ts'
+import { emailValidation, passwordValidation } from 'lib/validations.ts'
 import { useSnackbar } from 'notistack'
 import { Controller, useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
